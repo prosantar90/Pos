@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 22, 2023 at 06:42 AM
+-- Generation Time: Jul 03, 2024 at 04:10 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -69,19 +69,20 @@ CREATE TABLE `customers` (
   `cum_id` int(11) NOT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   `father_name` varchar(255) NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
   `customer_address` varchar(255) NOT NULL,
+  `order_amount` int(11) DEFAULT NULL,
   `order_amount_paid` varchar(255) DEFAULT NULL,
-  `order_total_amount_due` varchar(255) DEFAULT NULL
+  `order_total_amount_due` varchar(255) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`cum_id`, `customer_name`, `father_name`, `customer_address`, `order_amount_paid`, `order_total_amount_due`) VALUES
-(1, 'Prosanta', 'Biswanath', 'Jadupur', NULL, NULL),
-(2, 'Niranjan', 'Biswanath', 'Jadupu', NULL, NULL),
-(3, 'Bijay', 'Adhin', 'Samsabad', NULL, NULL);
+INSERT INTO `customers` (`cum_id`, `customer_name`, `father_name`, `phone_number`, `customer_address`, `order_amount`, `order_amount_paid`, `order_total_amount_due`, `created`) VALUES
+(1, 'Niranjan Raj', 'Biswanath Rajbanshi', '99332258', 'asaf', 320, '300', '20', '2023-06-06 10:32:27');
 
 -- --------------------------------------------------------
 
@@ -133,12 +134,10 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `customer_id`, `product_id`, `sales_qty`, `sales_price`, `sales_total_amount`) VALUES
-(1, '1', 'Samsumg', '2', '200', '400'),
-(2, '1', 'Vivo v25', '2', '1200', '2400'),
-(3, '2', 'Vivo v25', '1', '200', '200'),
-(4, '2', 'Samsumg', '3', '200', '600'),
-(5, '3', 'Samsumg', '1', '200', '200'),
-(6, '3', 'Vivo v25', '3', '1200', '3600');
+(1, '6', 'Vivo v25', '1', '1200', '1200'),
+(2, '7', 'Vivo v25', '1', '120', '120'),
+(3, '1', 'Vivo v25', '1', '120', '120'),
+(4, '1', 'Samsumg', '1', '200', '200');
 
 -- --------------------------------------------------------
 
@@ -280,7 +279,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `cum_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cum_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -292,7 +291,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `test`
