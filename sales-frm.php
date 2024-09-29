@@ -12,10 +12,17 @@ include 'config/config.php';
                     <?php alertMsg();?>
                 <form action="action.php" method="post">
                     <!-- Card Start -->
-                    <div class="card">
-                        <div class="card-header p-4">
+                    <div class="card" id="sales_frm">
+                        <div class="card-header p-2">
                             <div class="float-right">
-                                <h3 class="mb-0">Invoice #BBB10234</h3>
+                                <?php 
+                               if (get_sales_no() !==0) {?>
+                            <h3 class="mb-0">Invoice #<?= get_sales_no()?></h3>
+                                <input type="hidden" name="invoice_no" value="<?= get_sales_no()?>">
+                               <?php } else {?>
+                                <h3 class="mb-0">Invoice #</h3>
+                                <input type="hidden" name="invoice_no" value="1">
+                               <?php } ?>
                                 Date: <?php echo date('d-M-Y');?>
                             </div>
                         </div>
@@ -30,33 +37,32 @@ include 'config/config.php';
                             </div>
                             <div class="col-sm-6 ">
                                 <h5 class="mb-3">To:</h5>
-                                <input type="text" class="form-control" name="cum_name" placeholder="Customer Name">
-                                <input type="text" class="form-control mt-2" name="cum_father" placeholder="Father Name">
-                                <input type="text" class="form-control mt-2" name="cum_phone" placeholder="Phone Number">
-                                <textarea name="address" id="adress"  class="form-control mt-2" placeholder="Adress"></textarea>
+                                 <input type="text" class="form-control" name="cum_name" value="<?= isset($_SESSION['form_data']['cum_name']) ? $_SESSION['form_data']['cum_name'] : ''; ?>" placeholder="Customer Name">
+                                <input type="text" class="form-control mt-2" name="cum_father" value="<?= isset($_SESSION['form_data']['cum_father']) ? $_SESSION['form_data']['cum_father'] : ''; ?>" placeholder="Father Name">
+                                <input type="text" class="form-control mt-2" name="cum_phone" value="<?= isset($_SESSION['form_data']['cum_phone']) ? $_SESSION['form_data']['cum_phone'] : ''; ?>" placeholder="Phone Number">
+                                <textarea name="address" id="address" class="form-control mt-2" placeholder="Address"><?= isset($_SESSION['form_data']['address']) ? $_SESSION['form_data']['address'] : ''; ?></textarea>
                             </div>
                         </div>
                    <div class="col-md-12">
                     <!-- Row start for input form  -->
                     <div class="row"> 
-                         <div class="col-md-3">
+                        <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="product_name">Product Code</label>
+                                    <input type="text" name="pro_code" id="pro_code" class="form-control" placeholder="Product code">
+                                </div>
+                            </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="product_name">Product Name</label>
-                            <select name="pro_id" id="pro_id" class="form-control select1">
-                                <option value="" selected="false" disabled="disabled">Select Product</option>
-                            <?php 
-                                $products=show_products();
-                                foreach ($products as $product) {?>
-                                <option data-id="<?= $product['product_id']?>" value="<?= $product['product_name']?>"> <?= $product['product_name'];?></option>
-                                <?php  } ?>
-                                </select>
+                            <input type="text" name="pro_name" id="pro_name" class="form-control" disabled>
                         </div>
                     </div>
                     
                     <div class="col-md-2">
                           <div class="form-group">
                             <label for="product_price">Product Price</label>
-                            <input type="text" name="pro_prce" id="pro_prce" class="form-control" >
+                            <input type="text" name="pro_prce" id="pro_prce" class="form-control" disabled >
                         </div>
                     </div>
                      <div class="col-md-2">
@@ -65,14 +71,14 @@ include 'config/config.php';
                             <input type="number" name="pro_prce" id="pro_qty" class="form-control" >
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                           <div class="form-group">
                             <label for="product_price">Product Total</label>
-                            <input type="text" name="pro_prce" id="pro_total" class="form-control" >
+                            <input type="text" name="pro_prce" id="pro_total" class="form-control" disabled >
                         </div>
                     </div>
                     <div class="col-md-1">
-                    <button id="add_row" class="btn btn-primary mt-4">Add</button>
+                        <button id="add_row" class="btn btn-primary mt-4">Add</button>
                     </div>
                 <!-- Row end -->
                     </div>

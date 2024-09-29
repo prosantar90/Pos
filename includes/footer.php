@@ -1,4 +1,4 @@
-   </div>
+
         </div>
     </div>
 <!-- Required Jquery -->
@@ -14,6 +14,13 @@
 <!-- am chart -->
 <!-- Chart js -->
 <script type="text/javascript" src="assets/js/chart.js/Chart.js"></script>
+<!-- datatable -->
+ <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+
+<!-- Sweet alert -->
+<script type="text/javascript" src="assets/sweetalert/sweetalert2.all.min.js"></script>
 <!-- Custom js -->
 <script type="text/javascript" src="assets/js/script.js"></script>
 <script type="text/javascript " src="assets/js/SmoothScroll.js"></script>
@@ -22,6 +29,7 @@
 <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="assets/js/custom.js"></script>
 <?php include 'assets/js/ajax.php';?>
+
 </body>
 </html>
 <?php

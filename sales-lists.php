@@ -19,7 +19,6 @@ require_once 'includes/sidebar.php';
                     while($row=mysqli_fetch_array($c)){
                         echo $row['customer_id'].'<br>';
                     }
-                    
                     ?>  
             
 

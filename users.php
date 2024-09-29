@@ -11,12 +11,13 @@ require_once 'includes/sidebar.php';
                     <!-- card Start -->
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="users_list">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>User name</th>
+                                        <th>Username</th>
                                         <th>Full Name</th>
+                                        <th>User Email</th>
                                         <th>User Role</th>
                                         <th>Photo</th>
                                         <th>Action</th>
@@ -32,6 +33,7 @@ require_once 'includes/sidebar.php';
                                     ?>
                                     <tr>
                                         <td><?=$ru['id'];?></td>
+                                        <td><?=$ru['user_name'];?></td>
                                         <td><?=$ru['ufname'];?></td>
                                         <td><?=$ru['user_email'];?></td>
                                         <td><?=$ru['user_role'];?></td>
@@ -41,10 +43,9 @@ require_once 'includes/sidebar.php';
                                             <?php 
                                             if ($urole == 'admin') {
                                             ?>
-                                            <a href="#" class="badge badge-primary p-2"><i
-                                                    class="ti-pencil-alt"></i></a>
-                                            <a href="#" class="badge badge-primary p-2"><i class="ti-eye"></i></a>
-                                            <a href="#" class="badge badge-danger p-2"><i class="ti-trash"></i></a>
+                                                <a href="user_frm.php?user_id=<?= $ru['id'];?>" class="badge badge-primary p-2"><i class="ti-pencil-alt"></i></a>
+                                                <!-- <a href="#" class="badge badge-primary p-2"><i class="ti-eye"></i></a> -->
+                                                <a href="javascript:void(0);" id="delete_user" data-id="<?= $ru['id'];?>" class="badge badge-danger p-2"><i class="ti-trash"></i></a>
                                             <?php 
                                             }else{
                                             ?>

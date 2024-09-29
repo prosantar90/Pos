@@ -58,13 +58,54 @@
 
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Manage Purchases</div>
             <ul class="pcoded-item pcoded-left-item">
-            <li class="">
-                <a href="index.php">
-                    <span class="pcoded-micon"><i class="ti-shopping-cart"></i><b>P</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Purchase</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
+                <li class="pcoded-hasmenu ">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="ti-shopping-cart"></i><b>P</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Suplier</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+
+                    <ul class="pcoded-submenu">
+                        <li class="">
+                            <a href="suplier-list.php">
+                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Suplier List</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="suplier-frm.php">
+                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
+                <li class="pcoded-hasmenu ">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="ti-shopping-cart"></i><b>P</b></span>
+                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Purchase</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+
+                    <ul class="pcoded-submenu">
+                        <li class="">
+                            <a href="purchase-list.php">
+                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Purchase List</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="purchase-frm.php">
+                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
         </ul>
 
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Manage Sales</div>
@@ -88,7 +129,6 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-
                 </ul>
             </li>
         </ul>
@@ -134,7 +174,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="user_frm.php">
+                        <a href="customers-frm.php">
                             <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
                             <span class="pcoded-mcaret"></span>
                         </a>

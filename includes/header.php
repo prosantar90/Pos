@@ -43,9 +43,16 @@ include 'session.php';
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <!-- Required Fremwork -->
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+<!-- Datatable -->
+
+<link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
 <!-- Select2 css -->
 <link rel="stylesheet" href="assets/select2/css/select2.min.css">
 <link rel="stylesheet" href="assets/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- Sweet Alert -->
+ <link rel="stylesheet" type="text/css" href="assets/sweetalert/sweetalert.min.css">
 <!-- themify-icons line icon -->
 <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
 <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
@@ -57,7 +64,6 @@ include 'session.php';
 <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
 </head>
-<body>
 <body>
 <!-- Pre-loader start -->
 <div class="theme-loader">

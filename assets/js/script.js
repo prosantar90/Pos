@@ -1,5 +1,42 @@
 "use strict";
-$(document).ready(function() {
+$(document).ready(function () {
+    // Datatable Initailization
+    // $("#users_list").DataTable({
+    //     "fnCreatedRow": function (nRow, aData, iDataIndex) {
+    //         $(nRow).attr('id', aData[0]);
+    //     },
+    //     "responsive": true,
+    //     "bProcessing": true,
+    //     "serverSide": true,
+    //     "paging": true,
+    //     "ordering": true,
+    //     "order": [], // You can specify default order here, e.g., [0, 'asc']
+    //     "ajax": {
+    //         url: 'includes/users/users_lists.php', // This PHP file will serve data via AJAX
+    //         type: "POST"
+    //     },
+    //     "columns": [
+    //         { "data": 0 },  // For id
+    //         { "data": 1 },  // For Username
+    //         { "data": 2 },  // For Full Name
+    //         { "data": 3 },  // For Email
+    //         { "data": 4 },  // For User Role
+    //         {
+    //             "data": 5,
+    //             "render": function (data, type, row) {
+    //                 return '<img src="' + data + '" class="rounded" width="50" alt="' + data + '">';
+    //             }
+    //         },  // For Photo
+    //         {
+    //             "data": 6, // Actions
+    //             "orderable": false,
+    //             "render": function (data, type, row) {
+    //                 return row[6];  // Render actions from PHP
+    //             }
+    //         }
+    //     ]
+    // });
+
     // card js start
     $(".card-header-right .close-card").on('click', function() {
         var $this = $(this);

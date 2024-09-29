@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Add Product Category 
+ * @package 
+ * Best Pos Software
+ */
 if (isset($_POST['add_cat'])) {
     $catName = checkInput($_POST['cat_name']);
     $st= '1';
@@ -10,6 +16,12 @@ if (isset($_POST['add_cat'])) {
     $_SESSION['res_type'] ='success';
     $_SESSION['response'] ='Succefully Inserted';
 }
+
+/**
+ * View Product Category 
+ * @package 
+ * Best Pos Software
+ */
     $cat_id = '';
     $catName= '';
     $cUpdate = false;
@@ -25,6 +37,11 @@ if (isset($_GET['c_view'])) {
     $catName= $r['category_name'];
     $cUpdate = true;
 }
+/**
+ * Update Product Category 
+ * @package 
+ * Best Pos Software
+ */
 if(isset($_POST['update_cat'])){
     $id = checkInput($_POST['ca_id']);
     $catName = checkInput($_POST['cat_name']);
@@ -36,6 +53,11 @@ if(isset($_POST['update_cat'])){
      $_SESSION['res_type'] ='success';
     $_SESSION['response'] ='Category updated successfully'   ;
 }
+/**
+ * Delete Product Category 
+ * @package 
+ * Best Pos Software
+ */
 if (isset($_GET['c_delete'])) {
     $id = checkInput($_GET['c_delete']);
     $ps = "DELETE FROM categories WHERE categories.cat_id= ?";
@@ -45,4 +67,17 @@ if (isset($_GET['c_delete'])) {
     header('location:category.php');
     $_SESSION['response'] = 'Product deleted Successfully';
     $_SESSION['res_type'] = 'danger'; 
+}
+
+/**
+ * Staus active and inactive Product Category 
+ * @package 
+ * Best Pos Software
+ */
+if (isset($_GET['cat_id'])) {
+    $id = checkInput($_GET['cat_id']);
+    $status = checkInput($_GET['status']);
+    $bs = "UPDATE categories SET cat_status='$status' WHERE cat_id= '$id'";
+    $rs = mysqli_query($conn,$bs);
+    header('location:category.php');
 }

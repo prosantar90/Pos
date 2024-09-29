@@ -8,7 +8,7 @@ require_once 'includes/sidebar.php';
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="customers_lists">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -36,8 +36,8 @@ require_once 'includes/sidebar.php';
                                 <td><?= $customer['order_amount'];?></td>
                                 <td><?= $customer['order_total_amount_due'];?></td>
                                 <td>
-                                    <a href="#" class="badge badge-primary p-2">Edit</a>
-                                    <a href="#" class="badge badge-danger p-2">Delete</a>
+                                    <a href="customers-frm.php?cum_id=<?= $customer['cum_id'];?>" class="badge badge-primary p-2">Edit</a>
+                                    <a href="javascript:void(0)" id="delete_customer" data-id="<?= $customer['cum_id'];?>" class="badge badge-danger p-2">Delete</a>
                                 </td>
                             </tr>
                             <?php endforeach;?>

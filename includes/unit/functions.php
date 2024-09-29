@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Add Unit
+ * @package 
+ * Best Pos Software
+ */
 if (isset($_POST['save_unit'])) {
     $catName = checkInput($_POST['unit_name']);
     $st= '1';
@@ -10,7 +16,11 @@ if (isset($_POST['save_unit'])) {
     $_SESSION['res_type'] ='success';
     $_SESSION['response'] ='Succefully Inserted';
 }
-
+/**
+ * View Unit
+ * @package 
+ * Best Pos Software
+ */
     $u_id = '';
     $uName= '';
     $uUpdate = false;
@@ -26,6 +36,11 @@ if (isset($_GET['u_view'])) {
     $uName= $u['unit_name'];
     $uUpdate = true;
 }
+/**
+ * Update Unit
+ * @package 
+ * Best Pos Software
+ */
 if(isset($_POST['u_update'])){
     $id = checkInput($_POST['u_id']);
     $uName = checkInput($_POST['unit_name']);
@@ -37,7 +52,11 @@ if(isset($_POST['u_update'])){
     $_SESSION['res_type'] ='success';
     $_SESSION['response'] ='Unit updated successfully'   ;
 }
-
+/**
+ * Delete Unit
+ * @package 
+ * Best Pos Software
+ */
 if (isset($_GET['u_delete'])) {
     $id = checkInput($_GET['u_delete']);
     $ps = "DELETE FROM units WHERE units.unit_id= ?";
@@ -47,4 +66,16 @@ if (isset($_GET['u_delete'])) {
     header('location:units.php');
      $_SESSION['response'] = 'Product deleted Successfully';
     $_SESSION['res_type'] = 'danger'; 
+}
+/**
+ * Acive and inactiv Unit status
+ * @package 
+ * Best Pos Software
+ */
+if (isset($_GET['unit_id'])) {
+    $id = checkInput($_GET['unit_id']);
+    $status = checkInput($_GET['status']);
+    $bs = "UPDATE units  SET unit_status='$status' WHERE unit_id= '$id'";
+    $rs = mysqli_query($conn,$bs);
+    header('location:units.php');
 }

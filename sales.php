@@ -44,16 +44,20 @@ require_once 'includes/sidebar.php';
                                     foreach ($sales as  $sale) {
                                     ?>
                                 <tr>
-                                    <td><?= $sale['customer_id'];?></td>
+                                    <td>#<?= sprintf('%04d',$sale['sales_invoice']);?></td>
                                     <td><?= $sale['customer_name'];?></td>
                                     <td><?= $sale['qty'];?></td>
                                     <td><?= $sale['total'];?></td>
-                                    <td>12 jan 23</td>
+                                    <td><?= $sale['created_at'];?></td>
                                     <td>
                                     <?php 
                                         if ($urole == 'admin') {
                                         ?>
                                         <a href="brand-frm.php?b_view=<?= $sale['customer_id'];?>" class="badge badge-primary p-2"><i class="ti-pencil-alt"></i></a>
+                                       <a href="includes/invoices/sales-print.php?invoice=<?= $sale['sales_invoice']; ?>" class="badge badge-secondary p-2" target="_blank">
+                                            <i class="ti-printer"></i>
+                                        </a>
+
                                         <a href="action.php?b_delete=<?=$sale['customer_id']; ?>" onclick="return delete_alert();" class="badge badge-danger p-2"><i class="ti-trash"></i></a>
                                             <?php 
                                         }else{

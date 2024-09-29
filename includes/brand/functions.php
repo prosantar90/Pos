@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Add New Brand
+ * @package 
+ * Best Pos Software
+ * 
+ */
 if (isset($_POST['save_brand'])) {
     $catName = checkInput($_POST['brand_name']);
     $st= '1';
@@ -13,6 +20,13 @@ if (isset($_POST['save_brand'])) {
     $br_id = '';
     $brName= '';
     $bUpdate = false;
+
+/**
+ * View Brand
+ * @package 
+ * Best Pos Software
+ * 
+ */
 if (isset($_GET['b_view'])) {
     $id = checkInput($_GET['b_view']);
     $bq = "SELECT * FROM brand WHERE b_id=?";
@@ -25,6 +39,12 @@ if (isset($_GET['b_view'])) {
     $brName= $r['brand_name'];
     $bUpdate = true;
 }
+/**
+ * Update Brand
+ * @package 
+ * Best Pos Software
+ * 
+ */
 if(isset($_POST['up_brand'])){
     $id = checkInput($_POST['b_id']);
     $brName = checkInput($_POST['brand_name']);
@@ -36,6 +56,13 @@ if(isset($_POST['up_brand'])){
     $_SESSION['res_type'] ='success';
     $_SESSION['response'] ='Brand updated successfully'   ;
 }
+
+/**
+ * Delete Brand
+ * @package 
+ * Best Pos Software
+ * 
+ */
 if (isset($_GET['b_delete'])) {
     $id = checkInput($_GET['b_delete']);
     $ps = "DELETE FROM brand WHERE brand.b_id= ?";
@@ -45,4 +72,17 @@ if (isset($_GET['b_delete'])) {
     header('location:brands.php');
      $_SESSION['response'] = 'Product deleted Successfully';
     $_SESSION['res_type'] = 'danger'; 
+}
+/**
+ * Update status active and inactive Brand
+ * @package 
+ * Best Pos Software
+ * 
+ */
+if (isset($_GET['b_id'])) {
+    $id = checkInput($_GET['b_id']);
+    $status = checkInput($_GET['status']);
+    $bs = "UPDATE brand SET brand_status='$status' WHERE b_id= '$id'";
+    $rs = mysqli_query($conn,$bs);
+    header('location:brands.php');
 }
