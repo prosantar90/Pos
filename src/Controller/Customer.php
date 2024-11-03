@@ -2,7 +2,6 @@
 /**
  * Extends for new Customers Insert
  */
-
  class customers extends Database
  {
     public function addCustomer($data){
@@ -49,5 +48,52 @@
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    public function searchCustomersByName($searchTerm) {
+        $sql = "SELECT * FROM customers WHERE customer_name LIKE ? OR phone_number LIKE ? OR cum_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new Exception('Error preparing statement: ' . $this->conn->error);
+        }
+
+        $likeTerm = "%" . $searchTerm . "%";
+        $stmt->bind_param('ssi', $likeTerm, $likeTerm, $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+/**
+ * Get Customer where customer due payment next 10 days
+ */
+    public function promiseDate(){
+        $sql = "SELECT * FROM customers WHERE promis_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 10 DAY) limit 10";
+        return $this->getData($sql);    
+    }
+
+/**
+ * Get customer where new register 
+ * 
+ */
+public function recentCustomers(){
+    $sql ="SELECT * FROM customers WHERE created BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 DAY) AND CURDATE() LIMIT 10";
+     return $this->getData($sql);
+}
+
+
+/**Get Trasaction report by id */
+public function customerTransaction($id){
+   $sql = "
+        SELECT 
+           *
+        FROM 
+            transactions t 
+        LEFT JOIN 
+            customers c ON t.entity_id = c.cum_id 
+        WHERE 
+            t.transaction_type IN ('sales_payment', 'customers_payment') 
+            AND c.cum_id = ? ";
+     return $this->getAllDataById($sql, $id);
+}
+
  }
  

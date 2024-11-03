@@ -310,7 +310,7 @@ h6 {
   box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
   border: none;
   margin-bottom: 30px;
-  overflow: hidden;
+  overflow: visible;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -12969,7 +12969,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .form-control {
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 2px;
   border: 1px solid #cccccc;
 }
@@ -21306,3 +21306,21 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.feather {
+  font-family: 'feather' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.card .card-header .card-header-right .btn.dropdown-toggle i {
+  margin-right: 0;
+}
+select.form-control:not([size]):not([multiple]) {
+  height: calc(1.15rem + 12px);
+}

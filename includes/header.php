@@ -20,6 +20,7 @@
 // 	return $code;
 // }
 include 'config/config.php';
+date_default_timezone_set('Asia/Kolkata');
 require_once 'action.php';
 // if (! session_start()) {
 //     session_start();
@@ -44,9 +45,9 @@ include 'session.php';
 <!-- Required Fremwork -->
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
 <!-- Datatable -->
-
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
 <!-- Select2 css -->
 <link rel="stylesheet" href="assets/select2/css/select2.min.css">
@@ -56,7 +57,6 @@ include 'session.php';
 <!-- themify-icons line icon -->
 <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
 <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
-
 <!-- ico font -->
 <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
 <!-- Style.css -->
@@ -92,8 +92,8 @@ include 'session.php';
                 </div>
             </div>
         </div>
-        <a href="index.php">
-            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
+        <a href="index.php" class="text-center">
+            <p><?= $comName;?></p>
         </a>
         <a class="mobile-options">
             <i class="ti-more"></i>
@@ -129,18 +129,13 @@ include 'session.php';
                 </a>
                 <ul class="show-notification profile-notification">
                     <li>
-                        <a href="#!">
-                            <i class="ti-settings"></i> Settings
-                        </a>
-                    </li>
-                    <li>
                         <a href="profile.php">
                             <i class="ti-user"></i> Profile
                         </a>
                     </li>
-                    <li>
-                        <a href="auth-lock-screen.html">
-                            <i class="ti-lock"></i> Lock Screen
+                      <li>
+                        <a href="/pos/backup/">
+                            <i class="ti-user"></i> Backup 
                         </a>
                     </li>
                     <li>

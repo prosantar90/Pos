@@ -9,12 +9,7 @@ require_once 'includes/sidebar.php';
             <div class="page-wrapper">
                 <!-- Page-body start -->
                 <div class="page-body">
-                    <?php if (isset($_SESSION['response'])) { ?>
-                    <div class="alert alert-<?= $_SESSION['res_type'];?> alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <?= $_SESSION['response'];?>
-                    </div>
-                    <?php } unset($_SESSION['response']);?>
+                    <?php alertMsg();?>
                     <!-- Hover table card start -->
                     <div class="card">
                         <div class="card-header">
@@ -22,18 +17,19 @@ require_once 'includes/sidebar.php';
                                 <a href="product-frm.php" class="btn btn-primary">Add new</a>
                             </div>
                             <div class="card-header-right">
-                                <ul class="list-unstyled card-option">
-                                    <li><i class="fa fa-chevron-left"></i></li>
-                                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                                    <li><i class="fa fa-minus minimize-card"></i></li>
-                                    <li><i class="fa fa-refresh reload-card"></i></li>
-                                    <li><i class="fa fa-times close-card"></i></li>
-                                </ul>
+                                <button id="products__exportCsv" data-id="export_products_csv"
+                                    class="btn btn-default">Export CSV</button>
+                                <button id="products__importCsv" data-id="import_products_csv" class="btn btn-default">Import CSV</button>
                             </div>
+                             <div class="text-center" id="imort_frm"style="display:none;">
+                                <form id="import_csv_form" action="action.php" method="POST" enctype="multipart/form-data" >
+                                    <input type="file" name="import_csv_product" id="import_csv_product" accept=".csv">
+                                    <input type="submit" value="Submit" name="import_products">
+                            </form>
+                             </div>
                         </div>
                         <div class="card-block table-border-style">
-                            <div class="table-responsive">
-                                <table class="table table-hover" id="products">
+                               <table class="table table-hover" id="products">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -49,50 +45,8 @@ require_once 'includes/sidebar.php';
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php
-                                            $q = "SELECT products.product_id, products.product_name, products.product_code, brand.brand_name, units.unit_name, categories.category_name, products.price,products.quantity, products.p_image FROM products 
-                                            LEFT JOIN brand ON products.brand= brand.b_id
-                                            LEFT JOIN units ON products.sales_unit= units.unit_id
-                                            LEFT JOIN categories ON products.p_cat= categories.cat_id ";
-                                            $p = $conn->prepare($q);
-                                            $p->execute();
-                                            $r = $p->get_result();
-                                            while($row= mysqli_fetch_array($r)){
-                                            ?>
-                                        <tr>
-                                            <th scope="row"><?= $row['product_id'];?></th>
-                                            <td><img src="<?= $row['p_image'];?>" alt="<?= $row['p_image'];?>"
-                                                    class="rounded" width="50"></td>
-                                            <td><?= $row['product_name']?></td>
-                                            <td><?= $row['product_code']?></td>
-                                            <td><?= $row['category_name']?></td>
-                                            <td><?= $row['brand_name'];?></td>
-                                            <td><?= $row['unit_name']?></td>
-                                            <td><?= $row['quantity'];?></td>
-                                            <td><?= $row['price'];?></td>
-                                            <td>
-                                                <?php 
-                                                if ($urole == 'admin') {
-                                                ?>
-                                                <a href="product-frm.php?p_view=<?= $row['product_id'];?>"
-                                                    class="badge badge-primary p-2"><i class="ti-pencil-alt"></i></a>
-                                                <a href="javascript:void();" id="pro_view"
-                                                    class="badge badge-primary p-2" data-id=<?= $row['product_id']?> data-toggle="modal" data-target="#pr_view"><i class="ti-eye"></i></a>
-                                                <a href="action.php?p_delete=<?= $row['product_id'];?>" onclick="return delete_alert();"
-                                                    class="badge badge-danger p-2"><i class="ti-trash"></i></a>
-                                            <?php 
-                                                    }else{
-                                                    ?>
-                                                <a href="action.php?p_view=<?= $row['product_id'];?>"
-                                                    class="badge badge-primary p-2">View</a>
-                                                <?php }?>
-                                            </td>
-                                        </tr>
-                                        <?php }?>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
-                            </div>
                         </div>
                     </div>
                     <!-- Hover table card end -->
@@ -107,40 +61,40 @@ require_once 'includes/sidebar.php';
 <!-- Button to Open the Modal -->
 <!-- The Modal -->
 <div class="modal" id="pr_view">
-  <div class="modal-dialog content-width">
-    <div class="modal-content">
+    <div class="modal-dialog content-width">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title text-center">Product Details</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!-- Modal body -->
-      <div class="modal-body" id="view_pro">
-            <div class="view_pro text-center" >
-            <img src="" id="pr_img" width="300" class="rounded">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Code</th>
-                    <th>Price</th>
-                    <th>Qty</th>
-                </tr>
-                <tr>
-                    <td id="name"></td>
-                    <td id="code"></td>
-                    <td id="price"></td>
-                    <td id="qty"></td>
-                </tr>
-            </table>
+            <!-- Modal body -->
+            <div class="modal-body" id="view_pro">
+                <div class="view_pro text-center">
+                    <img src="" id="pr_img" width="300" class="rounded">
+                </div>
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                    </tr>
+                    <tr>
+                        <td id="name"></td>
+                        <td id="code"></td>
+                        <td id="price"></td>
+                        <td id="qty"></td>
+                    </tr>
+                </table>
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
 
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<?php include 'includes/footer.php';?>
+    <?php include 'includes/footer.php';?>

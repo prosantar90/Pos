@@ -1,5 +1,6 @@
 <?php 
 $user = new Users($conn);
+
 // Profile Update using
 if (isset($_POST['uUpdate'])) {
     $username = $_POST['uid'];

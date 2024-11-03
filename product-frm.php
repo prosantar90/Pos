@@ -8,12 +8,7 @@ require_once 'includes/sidebar.php';
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-                        <?php if (isset($_SESSION['response'])) { ?>
-                    <div class="alert alert-<?= $_SESSION['res_type'];?> alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <?= $_SESSION['response'];?>
-                    </div>    
-                    <?php } unset($_SESSION['response']);?>
+                       <?php alertMsg();?>
                    <div class="card">
                     <div class="card-body">
                  <form action="action.php" enctype="multipart/form-data" method="post">
@@ -33,27 +28,34 @@ require_once 'includes/sidebar.php';
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="brand-">Brand</label>
+    <label for="brand">Brand <?php echo $br_id; ?></label>
+    <?php 
+        $bq = "SELECT * FROM brand WHERE brand_status = 1";
+        $br = $conn->prepare($bq);
+        $br->execute();
+        $br = $br->get_result();
+    ?>
+    
+    <select name="brand" id="brand" class="form-control" required>
+        <option value="" selected="false" disabled="disabled">Select Brand</option>
+        <?php 
+        while ($brow = $br->fetch_assoc()) { // Use a while loop to fetch each brand
+            // Compare $br_id with $brow['b_id'] to determine the selected option
+            if ($brow['b_id'] == $br_id) {
+        ?>
+            <option value="<?= $brow['b_id'] ?>" selected="selected"><?= $brow['brand_name'] ?></option>
+        <?php
+            } else {
+        ?>
+            <option value="<?= $brow['b_id'] ?>"><?= $brow['brand_name'] ?></option>
+        <?php
+            }
+        }
+        ?>
+    </select>
+</div>
 
-                                    
-                                    <select name="brand" id="brand" class="form-control" required>
-                                        <option value="" selected="false" disabled="disabled">Select Brand</option>
-                                    <?php 
-                                        $bq=  "SELECT * FROM brand WHERE brand_status=1";
-                                        $br = $conn->prepare($bq);
-                                        $br->execute();
-                                        $br = $br->get_result();
-                                        foreach ($br as  $brow) {
-                                        if ( $brow['b_id'] == $br_id ) {
-                                              ?>
-                                           <option value="<?= $brow['b_id']?>" selected="selected"><?= $brow['brand_name']?></option>
-                                        <?php
-                                            }
-                                           ?>
-                                           <option value="<?= $brow['b_id']?>"><?= $brow['brand_name']?></option>
-                                    <?php  }  ?>
-                                    </select>
-                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -106,8 +108,8 @@ require_once 'includes/sidebar.php';
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="price-">Price</label>
-                                    <input type="text" class="form-control" value="<?= $pr_price;?>" placeholder="Price" name="price" required>
+                                    <label for="price-">MRP Price</label>
+                                    <input type="text" class="form-control" value="<?= $pr_price;?>" placeholder="MRP Price" name="price" required>
                                 </div>
                             </div>
 

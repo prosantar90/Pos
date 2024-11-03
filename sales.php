@@ -15,19 +15,16 @@ require_once 'includes/sidebar.php';
                             <div class="col-md-12">
                                <a href="sales-frm.php" class="btn btn-primary">Add new</a>
                             </div>
-                            <div class="card-header-right">
-                                <ul class="list-unstyled card-option">
-                                    <li><i class="fa fa-chevron-left"></i></li>
-                                    <li><i class="fa fa-window-maximize full-card"></i></li>
-                                    <li><i class="fa fa-minus minimize-card"></i></li>
-                                    <li><i class="fa fa-refresh reload-card"></i></li>
-                                    <li><i class="fa fa-times close-card"></i></li>
-                                </ul>
+
+                          <div class="card-header-right">
+                                <button id="sales__exportCsv" data-id="export_sales_csv" class="btn btn-default">Export CSV</button>
+                                <!-- <button id="sales__importCsv" data-id="import_import_csv" class="btn btn-default">Import CSV</button> -->
+
                             </div>
                         </div>
                         <div class="card-block table-border-style">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="sales_list">
                                      <thead>
                                     <tr>
                                         <th>Invoice Number</th>
@@ -39,34 +36,7 @@ require_once 'includes/sidebar.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 <?php 
-                                    $sales =getSales();
-                                    foreach ($sales as  $sale) {
-                                    ?>
-                                <tr>
-                                    <td>#<?= sprintf('%04d',$sale['sales_invoice']);?></td>
-                                    <td><?= $sale['customer_name'];?></td>
-                                    <td><?= $sale['qty'];?></td>
-                                    <td><?= $sale['total'];?></td>
-                                    <td><?= $sale['created_at'];?></td>
-                                    <td>
-                                    <?php 
-                                        if ($urole == 'admin') {
-                                        ?>
-                                        <a href="brand-frm.php?b_view=<?= $sale['customer_id'];?>" class="badge badge-primary p-2"><i class="ti-pencil-alt"></i></a>
-                                       <a href="includes/invoices/sales-print.php?invoice=<?= $sale['sales_invoice']; ?>" class="badge badge-secondary p-2" target="_blank">
-                                            <i class="ti-printer"></i>
-                                        </a>
-
-                                        <a href="action.php?b_delete=<?=$sale['customer_id']; ?>" onclick="return delete_alert();" class="badge badge-danger p-2"><i class="ti-trash"></i></a>
-                                            <?php 
-                                        }else{
-                                        ?>
-                                        <a href="#" class="badge badge-primary p-2">View</a>
-                                        <?php }?>
-                                        </td>
-                                </tr>
-                                <?php }?>
+                                 
                                 </tbody>
                                 </table>
                             </div>
@@ -78,4 +48,23 @@ require_once 'includes/sidebar.php';
         </div>
     </div>
 </div>
+<!-- View Customer as a profile -->
+<div class="modal" id="sale_view_ajax">
+    <div class="modal-dialog content-width">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Sale View</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-bodi" id="sales_views">
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <?php require_once 'includes/footer.php'?>

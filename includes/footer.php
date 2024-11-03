@@ -1,6 +1,8 @@
 
         </div>
     </div>
+    <footer id="footer">
+
 <!-- Required Jquery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
@@ -12,10 +14,14 @@
 <!-- modernizr js -->
 <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
 <!-- am chart -->
+<?php if(is_home_page()){?>
 <!-- Chart js -->
-<script type="text/javascript" src="assets/js/chart.js/Chart.js"></script>
+<!-- <script type="text/javascript" src="assets/js/chart.js/Chart.js"></script> -->
+<script type="text/javascript" src="assets/js/apexcharts.min.js"></script>
+<script type="text/javascript" src="assets/js/chart-apex.js"></script>
+<?php }?>
 <!-- datatable -->
- <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 

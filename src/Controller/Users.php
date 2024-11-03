@@ -6,7 +6,7 @@
  class Users extends Database
  {
     public function addUser($data){
-        return $this->insertData('customers', $data);
+        return $this->insertData('users', $data);
     }
     // Method to view a customer by ID
     public function getUserById($id) {
@@ -22,7 +22,7 @@
 
     // Method to update customer details
     public function updateCustomer($data, $id) {
-        $columns = implode(" = ?, ", array_keys($data)) . " = ?"; // Generate column placeholders
+        $columns = implode(" = ?, ", array_keys($data)) . " = ?";
         $values = array_values($data);
         $values[] = $id;
 

@@ -72,6 +72,12 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
+                         <li class="">
+                            <a href="supplier-pay.php">
+                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Suplier Pay</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
                         <li class="">
                             <a href="suplier-frm.php">
                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
@@ -132,10 +138,67 @@
                 </ul>
             </li>
         </ul>
-
-
         <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Users</div>
+
         <ul class="pcoded-item pcoded-left-item">
+         <li class="pcoded-hasmenu ">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>U</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Customers</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="customers.php">
+                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Customers List</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="customer_pay.php">
+                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Customer Pay</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="customers-frm.php">
+                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="pcoded-hasmenu ">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>U</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Salesman Lists</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="salesmans.php">
+                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Salesman List</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="salesman-pay.php">
+                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Sales Man Pay</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="salesman_frm.php">
+                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <?php if($urole === 'admin'){?>
             <li class="pcoded-hasmenu ">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>U</b></span>
@@ -158,31 +221,27 @@
 
                 </ul>
             </li>
+            <?php }?>
+            
+            
+
         </ul>
           <ul class="pcoded-item pcoded-left-item">
+           
+
+             
+        </ul>
+        <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Reports</div>
+         <ul class="pcoded-item pcoded-left-item">
             <li class="pcoded-hasmenu ">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>U</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Customers Lists</span>
+                <a href="reports.php">
+                    <span class="pcoded-micon"><i class="ti-bar-chart"></i></span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main">All Reports</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
-                <ul class="pcoded-submenu">
-                    <li class="">
-                        <a href="customers.php">
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Customers List</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="customers-frm.php">
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Add New</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-
-                </ul>
             </li>
         </ul>
+
     </div>
 </nav>
     <!-- End sidebar -->

@@ -1,8 +1,9 @@
 <?php
 require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
-?>
-<!-- Start Main content -->
+?> 
+
+<!-- Start Main  content -->
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <div class="main-body">

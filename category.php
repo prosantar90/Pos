@@ -14,11 +14,11 @@ require_once 'includes/sidebar.php';
                         <?= $_SESSION['response'];?>
                     </div>
                     <?php } unset($_SESSION['response']);?>
-                      <!-- Hover table card start -->
+                    <!-- Hover table card start -->
                     <div class="card">
                         <div class="card-header">
                             <div class="col-md-12">
-                               <a href="category_frm.php" class="btn btn-primary">Add new</a>
+                                <a href="category_frm.php" class="btn btn-primary">Add new</a>
                             </div>
                             <div class="card-header-right">
                                 <ul class="list-unstyled card-option">
@@ -33,56 +33,56 @@ require_once 'includes/sidebar.php';
                         <div class="card-block table-border-style">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Category Name</th>
-                                        <th>Category Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                     <tbody>
-                                <?php 
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Category Name</th>
+                                            <th>Category Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
                                 $q ="SELECT * FROM categories";
                                 $r= $conn->prepare($q);
                                 $r->execute();
                                 $c = $r->get_result();
                                 while($row=mysqli_fetch_array($c)){
                                 ?>
-                                    <tr>
-                                        <td><?= $row['cat_id'];?></td>
-                                        <td><?= $row['category_name'];?></td>
-                                        <td>
-                                            <?php if ($row['cat_status'] == '1') {
+                                        <tr>
+                                            <td><?= $row['cat_id'];?></td>
+                                            <td><?= $row['category_name'];?></td>
+                                            <td>
+                                                <?php if ($row['cat_status'] == '1') {
                                         ?>
-                                            <!-- <p class="text-primary">Active</p> -->
-                                            <a class="label label-success"
-                                                href="action.php?cat_id=<?= $row['cat_id'];?>&status=0">Active</a>
-                                            <?php }else{?>
-                                            <!-- <p class="text-danger"></p> -->
-                                            <a class="label label-danger"
-                                                href="action.php?cat_id=<?= $row['cat_id'];?>&status=1">Deactive</a>
+                                                <!-- <p class="text-primary">Active</p> -->
+                                                <a class="label label-success"
+                                                    href="action.php?cat_id=<?= $row['cat_id'];?>&status=0">Active</a>
+                                                <?php }else{?>
+                                                <!-- <p class="text-danger"></p> -->
+                                                <a class="label label-danger"
+                                                    href="action.php?cat_id=<?= $row['cat_id'];?>&status=1">Deactive</a>
 
-                                            <?php }?>
-                                        </td>
-                                        <td>
-                                            <?php 
+                                                <?php }?>
+                                            </td>
+                                            <td>
+                                                <?php 
                                         if ($urole == 'admin') {
                                         ?>
-                                            <a href="category_frm.php?c_view=<?= $row['cat_id']?>" class="badge badge-primary p-2"><i
-                                                    class="ti-pencil-alt"></i></a>
-                                            <a href="action.php?c_delete=<?= $row['cat_id'];?>"
-                                                onclick="return delete_alert();" class="badge badge-danger p-2"><i
-                                                    class="ti-trash"></i></a>
-                                            <?php 
+                                                <a href="category_frm.php?c_view=<?= $row['cat_id']?>"
+                                                    class="badge badge-primary p-2"><i class="ti-pencil-alt"></i></a>
+                                                <a href="action.php?c_delete=<?= $row['cat_id'];?>"
+                                                    onclick="return delete_alert();" class="badge badge-danger p-2"><i
+                                                        class="ti-trash"></i></a>
+                                                <?php 
                                         }else{
                                         ?>
-                                            <a href="#" class="badge badge-primary p-2">View</a>
-                                            <?php }?>
-                                        </td>
-                                    </tr>
-                                    <?php }?>
-                                </tbody>
+                                                <a href="#" class="badge badge-primary p-2">View</a>
+                                                <?php }?>
+                                            </td>
+                                        </tr>
+                                        <?php }?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

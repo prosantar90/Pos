@@ -44,7 +44,7 @@ if (isset($_SESSION['username'])) {
                     <div class="login-card card-block auth-body mr-auto ml-auto">
                         <form class="md-float-material" id="lfrm" method="post" action=''> 
                             <div class="text-center">
-                                <img src="assets/images/logo.png" alt="logo.png">
+                                <h2>👋 WELCOME 👋 </h2>
                             </div>
                             <div class="auth-box">
                                 <div class="row m-b-20">
