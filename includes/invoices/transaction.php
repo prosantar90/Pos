@@ -41,22 +41,22 @@ require '../../session.php';
           <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
+                <th>Payment Date</th>
                 <th>Transaction ID</th>
                 <th>Transaction Type</th>
                 <th>Amount</th>
                 <th>Payment Mode</th>
-                <th>Payment Date</th>
             </tr>
         </thead>
         <tbody>';
 
 foreach ($run as $transaction) {
     echo "<tr>
+            <td>" . htmlspecialchars(inDateTime($transaction['payment_date'])) . "</td>
             <td>" . htmlspecialchars($transaction['transaction_id']) . "</td>
             <td>" . htmlspecialchars($transaction['transaction_type']) . "</td>
             <td>" . number_format($transaction['amount'], 2) . "</td>
             <td>" . htmlspecialchars($transaction['payment_mode']) . "</td>
-            <td>" . htmlspecialchars(inDateTime($transaction['payment_date'])) . "</td>
           </tr>";
 }
 

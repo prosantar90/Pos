@@ -15,14 +15,14 @@ require_once 'includes/sidebar.php';
                                 <a href="customers-frm.php" class="btn btn-primary">Add new</a>
                             </div>
                             <div class="card-header-right">
-                                <button id="sales__exportCsv" data-id="sales__exportCsv"
+                                <button id="customer__exportCsv" data-id="customer__exportCsv"
                                     class="btn btn-default">Export CSV</button>
                                 <button id="customer__importCsv" data-id="import_import_csv" class="btn btn-default">Import CSV</button>
                             </div>
                              <div class="text-center" id="imort_frm"style="display:none;">
                                 <form id="import_csv_form" action="action.php" method="POST" enctype="multipart/form-data" >
                                     <input type="file" name="import_csv_customers" id="import_csv_customers" accept=".csv">
-                                    <input type="submit" value="Submit" class="" name="import_customers">
+                                    <input type="submit" value="Submit" class="btn btn-primary border-0" name="import_customers">
                             </form>
                              </div>
                         </div>
@@ -33,10 +33,9 @@ require_once 'includes/sidebar.php';
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Father Name</th>
+                                <th>Aadhaar No</th>
                                 <th>Address</th>
                                 <th>Phone</th>
-                                <th>Total Amount</th>
-                                <th>Due Amount</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

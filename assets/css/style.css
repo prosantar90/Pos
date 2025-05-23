@@ -648,7 +648,7 @@ h6 {
       Modal css start
 ==========================  **/
 .modal {
-  z-index: 99999999999;
+  z-index: 9999;
 }
 
 .bd-example .modal {
@@ -10591,7 +10591,7 @@ table tbody .border-bottom-info td {
 
 .pcoded .pcoded-navbar[active-item-theme="theme4"] .pcoded-item>li.active>a {
   background: -webkit-gradient(linear, left top, right top, from(#004ef9), to(#79a3ff)) !important;
-  background: linear-gradient(to right, #004ef9, #79a3ff) !important;
+  background: linear-gradient(to right, #A20E37, #FBBC09) !important;
   color: #fff !important;
 }
 
@@ -11831,7 +11831,7 @@ table tbody .border-bottom-info td {
 
 .pcoded .pcoded-header[header-theme="theme5"] {
   background: -webkit-gradient(linear, left top, right top, from(#0071f3), to(#73b4ff));
-  background: linear-gradient(to right, #0071f3, #73b4ff);
+  background: linear-gradient(to right, #A20E37, #FBBC09);
 }
 
 .pcoded .pcoded-header[header-theme="theme5"] a {
@@ -12268,8 +12268,8 @@ body.menu-bottom #collapse-menu {
 .btn-primary,
 .sweet-alert button.confirm,
 .wizard>.actions a {
-  background-color: #4099ff;
-  border-color: #4099ff;
+  background: linear-gradient(to right, #A20E37, #FBBC09);
+  border-color: unset;
   color: #fff;
   cursor: pointer;
   -webkit-transition: all ease-in 0.3s;
@@ -12280,7 +12280,7 @@ body.menu-bottom #collapse-menu {
 .sweet-alert button.confirm:hover,
 .wizard>.actions a:hover {
   background-color: #73b4ff;
-  border-color: #73b4ff;
+  border-color: #FBBC09;
 }
 
 .btn-primary:active,

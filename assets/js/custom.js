@@ -43,11 +43,9 @@ function initDataTable(selector, ajaxUrl) {
 }
 
 initDataTable("#products", 'includes/products/fetch_product.php');
-initDataTable("#purchase_list", 'includes/purchase/fetch_purchase_lists.php');
-initDataTable("#sales_list", 'includes/sales/fetch_sales.php');
+initDataTable("#groups", 'includes/group/fetch_group.php');
 initDataTable("#customers_lists", 'includes/customers/fetch-customers.php');
-initDataTable("#supplier_list", 'includes/supplier/fetch-list-data.php');
-initDataTable("#salesManList", 'includes/salesman/fetch-salesmanList-data.php');
+initDataTable("#attendance_lists", 'includes/attendance/fetch-attendance.php');
 // initDataTable("#salesManList", 'includes/home/fetch-collection-data.php');
     $('#collection_date, #manage__products, #recent_customers').DataTable({
         searching: false,
@@ -238,26 +236,11 @@ $(document).on('change', '#payment_option', function (e) {
     });
 
 
-    $(document).on('click', '#supl_delete', function (e) {
-        let sid = $(this).attr('data-id');
-        handleDeletion(e, sid, { supl_delete: sid });
+    $(document).on('click', '#delete_attendance', function (e) {
+        let aid = $(this).attr('data-id');
+        handleDeletion(e, aid, { attendance_delete: aid });
     });
 
-    /**Purchase Product Delete */
-    $(document).on('click', '#purchase_delete', function (e) {
-        let purchase_id = $(this).attr('data-id');
-        handleDeletion(e, purchase_id, { purchase__id: purchase_id });
-    });
-    $(document).on('click', '#man_delete', function (e) {
-        let manId = $(this).attr('data-id');
-        handleDeletion(e, manId, { man_delete: manId });
-    })
-
-    /**Sales Delete */
-    $(document).on('click', '#sales_delete', function (e) {
-        let salesId = $(this).attr('data-id');
-        handleDeletion(e, salesId, { invoiceId: salesId });
-    })
     /**View salesman Using ajax */
     $(document).on('click', "#man_view-btn", function (e) {
         let manID = $(this).attr('data-id');
@@ -335,11 +318,9 @@ function exportCsv(exportBtnSelector, dataKey, filename) {
 }
 
 // Export CSV for different buttons
-exportCsv('#products__exportCsv', 'export_csv_product', 'product_data.csv');
-exportCsv('#salesman__exportCsv', 'export_csv_salesMan', 'salesman_data.csv');
-exportCsv('#sales__exportCsv', 'export_csv_sales', 'sales_data.csv');
 exportCsv('#customer__exportCsv', 'export_csv_customers', 'customers.csv');
-exportCsv('#supplier__exportCsv', 'export_csv_supplier', 'suppliers.csv');
+exportCsv('#attendance__exportCsv', 'attendance__exportCsv', 'attendance.csv');
+exportCsv('#group__exportCsv', 'group__exportCsv', 'groups-data.csv');
 
     /**Import Function  */
 $(document).on('click', '#products__importCsv, #customer__importCsv, #supplier__importCsv, #sales__importCsv, #salesman__importCsv', function () {
@@ -475,46 +456,10 @@ function loadView(viewBtnSelector, dataKey, targetElement) {
         });
     });
 }
-loadView('#purchase_views', 'purchaseId', '#purchase_product_view');
 loadView('#customer_view', 'getCustomerId', '#customer_views');
-loadView('#suppliers_views', 'getSupplierId', '#supplier_viewAjax');
-loadView('#sales_view', 'getInvoiceNo', '#sales_views');
-$('#cus_promise_date').datepicker({ dateFormat: 'yy-mm-dd' });
-/**
- * This is supplier pay advance payment
- */
-$(document).on('change', '#search_supplier', function (e) {
-    e.preventDefault();
-    let getId = $(this).val();
-    $.ajax({
-        url: 'action.php',
-        method: 'post',
-        data: {
-            search_supplier: getId,
-        },
-        success: function (r) {
-            console.log(r);
-            $('#search__input').after(r);
-        }
-    })
-})
+loadView('#group_view', 'getGroupId', '#group_views');
 
-    /** This is for customer pay from home page if due */
-$(document).on('click', '#pay__now', function (e) {
-    e.preventDefault();
-    let getId = $(this).attr('data-id');
-    $.ajax({
-        action: 'action.php',
-        method: 'post',
-        data: {
-          pay_now: getId,
-        },
-        success: function (r) {
-            console.log(r);
-            $("#customer_payment").html(r);
-        }
-    })
-})
+
 
 })
 

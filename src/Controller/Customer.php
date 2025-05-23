@@ -13,6 +13,12 @@
         return $this->getById($sql, $id);
     }
 
+      public function getGroupId($id) {
+        $sql = "SELECT * FROM customers WHERE group_id = ?";
+        return $this->getAllDataById($sql, $id);
+    }
+
+
     // Method to view all customers
     public function getAllCustomers() {
         $sql = "SELECT * FROM customers";

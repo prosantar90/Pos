@@ -10,6 +10,7 @@ $sql = "SELECT * FROM customers";
 if (isset($_POST['search']['value']) && !empty($_POST['search']['value'])) {
     $search_value = checkInput($_POST['search']['value']);
     $sql .= " WHERE customer_name LIKE '%" . $search_value . "%' 
+             OR aadhaar_no LIKE '%" . $search_value . "%'
               OR phone_number LIKE '%" . $search_value . "%'";
 }
 
@@ -19,7 +20,7 @@ if (isset($_POST['order'])) {
     $order_dir = $_POST['order'][0]['dir'];  // asc or desc
 
     // Map column index to actual column names
-    $column_names = array('cum_id', 'customer_name', 'father_name', 'customer_address', 'phone_number', 'order_amount', 'order_total_amount_due', 'price');
+    $column_names = array('cum_id', 'customer_name', 'father_name', 'customer_address', 'phone_number');
     $column_name = $column_names[$column_index];
     $sql .= " ORDER BY " . $column_name . " " . $order_dir;
 } else {
@@ -47,17 +48,15 @@ foreach ($rows as $key => $row) {
     $sub_array[] = $row['cum_id'];
     $sub_array[] = '<a href="javascript:void(0);" id="customer_view"  data-id="'.$row['cum_id'].'" data-toggle="modal" data-target="#cust_view_ajax">'.$row['customer_name'].'</a>';
     $sub_array[] = $row['father_name'];
+    $sub_array[] = $row['aadhaar_no'];
     $sub_array[] = $row['customer_address'];
     $sub_array[] = $row['phone_number'];
-    $sub_array[] = $row['order_amount'];
-    $sub_array[] = $row['order_total_amount_due'];
 
     // Conditional rendering based on user role
     if ($urole == 'admin') {
     $sub_array[] = '
         <a href="customers-frm.php?cum_id=' . $row['cum_id'] . '" class="badge badge-primary p-2"><i class="ti-pencil-alt"></i></a>
         <a href="javascript:void(0);" id="customer_view" class="badge badge-primary p-2" data-id="' . $row['cum_id'] . '" data-toggle="modal" data-target="#cust_view_ajax"><i class="ti-eye"></i></a>
-        <a href="' . createSaltedUrl($row['cum_id'],'customer_transaction') . '" target="_blank" class="badge badge-primary p-2"><i class="ti-wallet"></i></a>
         <a href="javascript:void(0)" id="delete_customer" data-id="' . $row['cum_id'] . '" class="badge badge-danger p-2"><i class="ti-trash"></i></a>';
 } else {
     $sub_array[] = '

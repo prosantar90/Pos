@@ -1,21 +1,22 @@
 <?php
 $customer = new customers($conn);
-$transaction = new Transaction($conn);
 if(isset($_POST['add_customer'])){
- date_default_timezone_set('Asia/Kolkata');
+    date_default_timezone_set('Asia/Kolkata');
     $cum_name = checkInput($_POST['cum_name']);
     $cum_f_name = checkInput($_POST['cum_father_name']);
+    $cum_aadhar = checkInput($_POST['cus_addhar']);
     $cum_phone = checkInput($_POST['cum_phone']);
-    $cum_addess = checkInput($_POST['cus_address']);
-    
+    $cum_addess = checkInput($_POST['cus_address']);  
+    $samiti_id = checkInput($_POST['samitiName']);
     $cq = array(
         'customer_name' => $cum_name,
         'father_name' => $cum_f_name,
+        'aadhaar_no' => $cum_aadhar,
         'phone_number' => $cum_phone,
         'customer_address' => $cum_addess,
+        'group_id'      =>$samiti_id,
         'cus_updated'   => date('Y-m-d H:i:s'),
     );
-    
     try {
         $run  = $customer->addCustomer($cq);
         if ($run) {
@@ -38,11 +39,10 @@ if(isset($_POST['add_customer'])){
    $cus_id = '';
    $cus_name = '';
    $cus_f_name = '';
+   $cus_aadhar = '';
    $cus_phone = '';
    $cus_address = '';
-   $cus_amount = '';
-   $cus_amount_paid = '';
-   $cus_amount_due = '';
+   $samiti_id='';
    $customer_update = false; 
 /**
  * View Customer 
@@ -55,11 +55,11 @@ if (isset($_GET['cum_id'])) {
    $cus_id = $row['cum_id'];
    $cus_name = $row['customer_name'];
    $cus_f_name = $row['father_name'];
+   $cus_aadhar = $row['aadhaar_no'];
    $cus_phone = $row['phone_number'];
    $cus_address = $row['customer_address'];
-   $cus_amount = $row['order_amount'];
-   $cus_amount_paid = $row['order_amount_paid'];
-   $cus_amount_due = $row['order_total_amount_due'];
+   $samiti_id = $row['group_id'];
+
    $customer_update = true; 
 }
 /**This is for Sales form get details */
@@ -117,29 +117,24 @@ if (isset($_POST['search_customer'])) {
     $cust_id = checkInput($_POST['cus_id']);
     $cust_name = checkInput($_POST['cum_name']);
     $cust_f_name = checkInput($_POST['cum_father_name']);
+    $cus_aadhar = checkInput($_POST['aadhar_no']);
     $cust_phone = checkInput($_POST['cum_phone']);
     $cust_address = checkInput($_POST['cus_address']);
-    $cust_total_amount = checkInput($_POST['cus_t_amount']);
-    $cust_amount_paid = checkInput($_POST['cus_amount_paid']);
-    $cust_amount_due = checkInput($_POST['cus_due_amount']);
-    $current_paid_amount = $cust_amount_paid + $cust_amount_due;  
-    $current_due_amount =   $cust_total_amount- $current_paid_amount;
+    $samiti_id = checkInput($_POST['samiti_name']);
 
     $cudate_data = [
 
         'customer_name' => $cust_name,
         'father_name' => $cust_f_name,
+        'aadhaar_no'   => $cus_aadhar,
         'phone_number' => $cust_phone,
         'customer_address' => $cust_address,
-        'order_amount' => $cust_total_amount,
-        'order_amount_paid' => $current_paid_amount,
-        'order_total_amount_due' => $current_due_amount,
-
+        'group_id' => $samiti_id,
     ];
 
     $run = $customer->updateCustomer($cudate_data, $cust_id);
     if($run){
-        header('location:customers-frm.php');
+        header('location:customers.php');
         $_SESSION['res_type'] ='success';
         $_SESSION['response'] ='Customer Update successfully';
     }
@@ -186,8 +181,9 @@ if (isset($_POST['findCusByName'])) {
  */
 if (isset($_POST['export_csv_customers'])) {
     $filename = 'customers_data.csv';
-    $header = array('SL No', 'Name', 'Father Name', 'Address', 'Phone Number', 'Total Amount', 'Paid Amount', 'Due Amount', 'Register', 'Last Update');
-    $query = "SELECT * FROM customers ORDER BY cum_id DESC";
+    $header = array('SL No', 'Name', 'Father Name', 'Aadhaar No', 'Phone Number', 'Address', 'Samiti Name', 'Register', 'Last Update');
+
+    $query = "SELECT customers.cum_id, customer_name,father_name,aadhaar_no, phone_number, customer_address, samiti_group.group_name, created, cus_updated FROM customers LEFT JOIN samiti_group ON customers.cum_id =  samiti_group.id ORDER BY cum_id DESC";
     
     // Format the 'purchase_at' column with the date format 'd-m-Y H:i:s'
     export_csv($filename, $header, $query, $conn, 'cus_updated', 'd-m-Y');
@@ -212,31 +208,24 @@ if (isset($_POST['export_csv_customers'])) {
         // Process remaining rows
         while (($data = fgetcsv($ofile, 1000, ',')) !== false) {
             echo $customer_name = $data[1];
-           
-            
             $fatther_name = $data[2];
-            $phone_num = $data[3];
-            $customer_address = $data[4];
-            $order_amount = $data[5];
-            $paid_amount = $data[6];
-            $dueAmount = $data[7];
-            $register = date('Y-m-d H:i:s', strtotime($data[8]));  
-            $lastPurchase = date('Y-m-d H:i:s', strtotime($data[9])); 
-            $promiseDate = $data[10];
+            $adhar_no = $data[3];
+            $phone_num = $data[4];
+            $customer_address = $data[5];
+            $groupid = [6];
+            $register = date('Y-m-d H:i:s', strtotime($data[7]));  
+            $lastPurchase = date('Y-m-d H:i:s', strtotime($data[8])); 
 
             $customers_data = [
                 'customer_name' => $customer_name,
                 'father_name' => $fatther_name,
+                'aadhaar_no' => $adhar_no,
                 'phone_number' => $phone_num,
                 'customer_address' => $customer_address,
-                'order_amount' => $order_amount,
-                'order_amount_paid' => $paid_amount,
-                'order_total_amount_due' => $dueAmount,
+                'group_id' => $groupid,
                 'created' => $register,
                 'cus_updated' => $lastPurchase,
-                'promis_date' => $promiseDate,
             ];
-
             // Insert product into database
             $run = $customer->addCustomer($customers_data);
             if (!$run) {
@@ -288,72 +277,26 @@ if(isset($_POST['getCustomerId'])){
         echo '<p><strong>Address:</strong> ' . $run['customer_address'] . '</p>';
         echo '</div>';
         
-        echo '<div class="col-md-6">';
-        echo '<p><strong>Total Order Amount:</strong> ' . $run['order_amount'] . '</p>';
-        echo '<p><strong>Paid Amount:</strong> ' . $run['order_amount_paid'] . '</p>';
-        echo '<p><strong>Due Amount:</strong> ' . $run['order_total_amount_due'] . '</p>';
-    echo '</div> </div>';
+        echo ' </div>';
     }
 }
 
 
-/**
- *Customer pay
- */
-if(isset($_POST['customer_pay'])){
-    $cusID = checkInput($_POST['custID']);
-    $custDuePayment = checkInput($_POST['customer_due']);
-    $cusPayMode = checkInput($_POST['payment_mod']);
-    $paymentDate = date('Y-m-d');
-    $chequeNo = checkInput($_POST['chequeOrAccountNo']);
-    $transactionType = 'customers_payment';
-    $data = [
-        'transaction_type' => $transactionType,
-        'entity_id' => $cusID,
-        'amount' => $custDuePayment,
-        'payment_mode' => $cusPayMode,
-        'chequeOraccNo' => !empty($chequeNo) ? $chequeNo :NULL,
-        'payment_date' => $paymentDate
-    ];
-    $run = $transaction->addTransaction($data);
-    $invoice_no=  $conn->insert_id;
-
-    if($run){
-       $checkCust= $customer->getCustomerById($cusID);
-       $oldAmount = $checkCust['order_amount_paid'];
-       $oldDueAmount = $checkCust['order_total_amount_due'];
-       $current_due_amount = $oldDueAmount - $custDuePayment;
-       $currentPaidAmount = $oldAmount + $custDuePayment;
-        $cusData = [
-            'order_amount_paid' => $currentPaidAmount,
-            'order_total_amount_due' =>$current_due_amount
-
-        ];
-        $updateCustomer = $customer->updateCustomer($cusData, $cusID);
-        if ($updateCustomer) {
-        //    header('location:customer_pay.php');
+if (isset($_POST['add_customer_to_group'])) {
+    $cus_id = checkInput($_POST['select_customer']);
+    $groupId = checkInput($_POST['samiti_id']);
+    $cusData = array(
+        'group_id' => $groupId,
+    );
+     $run = $customer->updateCustomer($cusData, $cus_id);
+     if ($run) {
+         header('location:group_view.php?group_id='.$groupId);
            $_SESSION['res_type'] = 'success';
-           $_SESSION['response'] = 'Payment Successfull';
-        echo  "
-            <script>
-                    var dataWindow = window.open('includes/invoices/customer-pay-invoice.php?customer_pay_invoice=$invoice_no', '_blank');
-                    dataWindow.focus();
-                    window.location.href = 'customer_pay.php';
-                </script>
-        ";
-
-        }else{
-            header('location:customer_pay.php');
-           $_SESSION['res_type'] = 'danger';
-           $_SESSION['response'] = 'Payment failed';
-        }        
-    }else{
-        header('location:customer_pay.php');
+           $_SESSION['response'] = 'Successfully added';
+     }else{
+        header('location:group_view.php?group_id='.$groupId);
         $_SESSION['res_type'] = 'danger';
-        $_SESSION['response'] = 'Very bad request';
-    }
+        $_SESSION['response'] ='Failed to added';
+     }
+    exit();
 }
-
-
-
-

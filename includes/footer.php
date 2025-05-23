@@ -34,7 +34,7 @@
 <script src="assets/js/vartical-demo.js"></script>
 <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="assets/js/custom.js"></script>
-<?php include 'assets/js/ajax.php';?>
+
 
 </body>
 </html>

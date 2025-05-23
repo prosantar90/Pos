@@ -4,6 +4,7 @@ if (! session_start()) {
 }
 include 'config/config.php';
 require_once 'functions.php';
+require 'vendor/autoload.php';
 require_once 'src/includes.php';
 /**
  * login using Ajax 
@@ -86,16 +87,11 @@ if (isset($_POST['add_user'])) {
 
 // Update Product 
 require_once 'includes/users/functions.php';
-require_once 'includes/supplier/functions.php';
-include 'includes/products/functions.php';
-include 'includes/category/functions.php';
-include 'includes/brand/functions.php';
-include 'includes/unit/functions.php';
+
 include 'includes/users/functions.php';
 include 'includes/customers/functions.php';
-require_once 'includes/purchase/functions.php';
-require_once 'includes/salesman/action.php';
-require_once 'includes/sales/action.php';
+include 'includes/group/functions.php';
+require_once 'includes/attendance/function.php';
 require_once 'includes/home/action.php';
 
 //  Sales Functions;

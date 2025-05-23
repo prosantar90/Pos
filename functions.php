@@ -100,41 +100,7 @@ function byId($sql, $id){
     return $row;
 }
 
-function showinvoice($sql, $id){
-    global $conn;
-    $ps= $conn->prepare($sql);
-    $ps->bind_param('i', $id);
-    $ps->execute();
-    $pr= $ps->get_result();
-    $row= $pr->fetch_all(MYSQLI_ASSOC);
-    return $row;
-}
 
-function showAll_sales(){
-    $sq = "SELECT * FROM sales";
-    return getData($sq);
-}
-function show_products(){
-    $sql = "SELECT * FROM products";
-    return getData($sql);
-}
-function getProductById($id){
-    $sql ="SELECT * FROM products WHERE product_id=?";
-    $row= byId($sql, $id);
-    return $row;
-}
-function getProductByCode($code){
-    global $conn;
-    $sql ="SELECT * FROM products
-        LEFT JOIN units ON products.sales_unit
-     WHERE product_code=?";
-    $ps= $conn->prepare($sql);
-    $ps->bind_param('s', $code);
-    $ps->execute();
-    $pr= $ps->get_result();
-    $row= $pr->fetch_array(MYSQLI_ASSOC);
-    return $row;
-}
 
 
 function is_home_page() {
@@ -145,23 +111,7 @@ function is_page($page) {
     return basename($_SERVER['SCRIPT_NAME']) == $page;
 }
 
-function getSales(){
-    global $conn;
-    // $sq ="SELECT sales.customer_id,customers.customer_name, SUM(sales.sales_qty) as qty, SUM(sales.sales_total_amount) as total FROM sales LEFT JOIN customers ON sales.customer_id= customers.cum_id GROUP BY sales.customer_id";
-    $sq ="SELECT sales.sales_invoice,sales.customer_id,customers.customer_name, SUM(sales.sales_qty) as qty, SUM(sales.sales_total_amount) as total, created_at FROM sales LEFT JOIN customers ON sales.customer_id= customers.cum_id GROUP BY sales.sales_invoice";
-    return getData($sq);
-}
-function get_sales_no(){
-     $sql = "SELECT sales_invoice FROM sales ORDER BY sales_invoice DESC LIMIT 1";
-     $getid = getData($sql);
-     $invoice_no = 0001;
-     foreach ($getid as $id) {
-     $invoice_no= $id['sales_invoice'];
-     }
-    $invoice_no++;
-    $formatted_invoice_no = sprintf('%04d', $invoice_no); 
-    return $formatted_invoice_no;
-}
+
 
 /**
  * Geting date and time with 
@@ -194,76 +144,6 @@ function export_csv($filename, $header, $query, $conn, $date_column = null, $dat
     fclose($output);
 }
 
-/**
- * Sales dasboard
- * @package 
- * Best Pos Software
- */
-/**
- * Day sales
- */
-function todaySales(){
-    $sel = "SELECT COUNT(DISTINCT sales_invoice) as total_sales
-    FROM sales 
-    WHERE DATE(created_at) = CURRENT_DATE";
-    $today_sale =  '';
-      $run = getData($sel);
-      foreach ($run as $r) {
-        $today_sale= $r['total_sales'];
-      }
-      return $today_sale;
-}
-
-/**
- * All time sales sales
- */
-function allTimeSale(){
-    $sel = "SELECT COUNT(DISTINCT sales_invoice) as total_sales FROM sales ";
-    $today_sale =  '';
-      $run = getData($sel);
-      foreach ($run as $r) {
-        $today_sale= $r['total_sales'];
-      }
-      return $today_sale;
-}
-
-function alTimeSaleItems(){
-    $sq = "SELECT SUM(sales_qty) AS all_timeSale FROM sales";
-    $result = getData($sq);
-    return $result[0]['all_timeSale'] ?? 0;
-}
-function toDaySaleItems(){
-    $sq = "SELECT SUM(sales_qty) AS toDay_timeSale FROM sales WHERE DATE(created_at) = CURRENT_DATE";
-    $result = getData($sq);
-    return $result[0]['toDay_timeSale'] ?? 0;
-}
-/**
- * Purchase dasboard
- * @package 
- * Best Pos Software
- */
-
-function toDayPurchase(){
-    $sq = "SELECT COUNT(ID) AS today_purchase FROM purchase WHERE DATE(purchase_at) = CURRENT_DATE";
-    $result = getData($sq);
-  return $result[0]['today_purchase'] ?? 0;
-}
-function alTimePurchase(){
-    $sq = "SELECT COUNT(ID) AS all_timePurchase FROM purchase";
-    $result = getData($sq);
-  return $result[0]['all_timePurchase'] ?? 0;
-}
-function toDayPurchasItems(){
-    $sq = "SELECT SUM(product_qty) AS toDayPurchaseItems FROM purchase WHERE DATE(purchase_at) = CURRENT_DATE";
-    $result = getData($sq);
-    return $result[0]['toDayPurchaseItems'] ?? 0;
-}
-
-function allTimePurchasItems(){
-    $sq = "SELECT SUM(product_qty) AS allTimePurchaseItems FROM purchase";
-    $result = getData($sq);
-    return $result[0]['allTimePurchaseItems'] ?? 0;
-}
 
 /**
  * Salt Url for get transaction report
